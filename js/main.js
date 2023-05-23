@@ -259,4 +259,124 @@ $(function() {
 	$(document).ready(function() {
 		$('#mc_embed_signup').find('form').ajaxChimp();
 	});
+
 });
+
+
+// Sample data from NEA website , in application it can access through DB
+const data = [
+    {
+        "E-waste Collection Points": "ALBA E-WASTE SMART RECYCLING PTE LTD",
+        "Location": "20 TUAS LOOP",
+        "Postal Code": "637350",
+        "Directions": "https://www.google.com/maps/dir/?api=1&destination=1.320382282,103.6",
+        "Remarks": "E-waste accepted: All regulated consumer products under First Schedule at",
+        "Website": "https://alba-ewaste.sg"
+    },
+    {
+        "E-waste Collection Points": "RECYCLESMART SOLUTIONS PTE LTD",
+        "Location": "8 UBI ROAD 2, #06-29, ZERVEX",
+        "Postal Code": "408538",
+        "Directions": "https://www.google.com/maps/dir/?api=1&destination=1.325551,103.897573",
+        "Remarks": "E-waste accepted: Computers, laptops, monitors, servers, printers, copiers, scanners, projectors, networking devices, mobile phones, fax machines, photocopiers, etc.",
+        "Website": "https://recyclesmart.sg"
+    },
+    {
+        "E-waste Collection Points": "TES-AMM (SINGAPORE) PTE LTD",
+        "Location": "21 TUAS VIEW CIRCUIT",
+        "Postal Code": "637358",
+        "Directions": "https://www.google.com/maps/dir/?api=1&destination=1.322448,103.638993",
+        "Remarks": "E-waste accepted: IT equipment, home appliances, consumer electronics, lighting equipment, medical devices, batteries",
+        "Website": "https://www.tes-amm.com.sg"
+    },
+    {
+        "E-waste Collection Points": "Virogreen Pte Ltd",
+        "Location": "8 Admiralty Street",
+        "Postal Code": "757438",
+        "Directions": "https://www.google.com/maps/dir/?api=1&destination=1.451853,103.813237",
+        "Remarks": "E-waste accepted: Computers, laptops, tablets, mobile phones, printers, fax machines, copiers, televisions, etc.",
+        "Website": "http://www.virogreen.net"
+    },
+    {
+        "E-waste Collection Points": "Eco-Wiz Pte Ltd",
+        "Location": "8 New Industrial Road, #05-01",
+        "Postal Code": "536200",
+        "Directions": "https://www.google.com/maps/dir/?api=1&destination=1.334147,103.882677",
+        "Remarks": "E-waste accepted: Computers, laptops, monitors, televisions, printers, fax machines, copiers, scanners, projectors, keyboards, mice, etc.",
+        "Website": "http://www.eco-wiz.com.sg"
+    },
+    {
+        "E-waste Collection Points": "Cimelia Resource Recovery Pte Ltd",
+        "Location": "8 Pioneer Sector 1",
+        "Postal Code": "628420",
+        "Directions": "https://www.google.com/maps/dir/?api=1&destination=1.327839,103.672678",
+        "Remarks": "E-waste accepted: IT equipment, home appliances, consumer electronics, lighting equipment, medical devices, batteries",
+        "Website": "https://www.cimelia.com.sg"
+    },
+    {
+        "E-waste Collection Points": "EcoWise Waste Management Pte Ltd",
+        "Location": "33 Ubi Avenue 3",
+        "Postal Code": "408868",
+        "Directions": "https://www.google.com/maps/dir/?api=1&destination=1.329899,103.894703",
+        "Remarks": "E-waste accepted: Computers, laptops, mobile phones, tablets, printers, fax machines, copiers, televisions, etc.",
+        "Website": "https://ecowise.com.sg"
+        },
+        {
+        "E-waste Collection Points": "TES (Singapore) Pte Ltd",
+        "Location": "9 Pandan Crescent",
+        "Postal Code": "128465",
+        "Directions": "https://www.google.com/maps/dir/?api=1&destination=1.311333,103.757612",
+        "Remarks": "E-waste accepted: Computers, laptops, mobile phones, tablets, printers, fax machines, copiers, televisions, etc.",
+        "Website": "https://www.tes-amm.com"
+        },
+        {
+            "E-waste Collection Points": "Cimelia Resource Recovery Pte Ltd",
+            "Location": "9 Tuas Avenue 10",
+            "Postal Code": "639139",
+            "Directions": "https://www.google.com/maps/dir/?api=1&destination=1.316742,103.637597",
+            "Remarks": "E-waste accepted: Computers, laptops, mobile phones, tablets, printers, fax machines, copiers, televisions, etc.",
+            "Website": "http://www.cimelia.com.sg"
+            }
+            
+    // ... Add more data entries here
+  ];
+  
+  function lookupPostalCode() {
+    const postalCode = document.getElementById("postalCodeInput").value;
+    const resultElement = document.getElementById("result");
+
+   // Validate postal code
+  if (!/^\d{6}$/.test(postalCode)) {
+    resultElement.innerHTML = '<br><p style="color: white;">Please enter a valid 6-digit postal code (integer only).</p>';
+    return;
+  }
+  
+    // Find matching postal code in the data
+    const match = data.find(entry => entry["Postal Code"] === postalCode);
+  
+    // Display the result
+    if (match) {
+      const location = match["Location"];
+      const directions = match["Directions"];
+      const remarks = match["Remarks"];
+      const website = match["Website"];
+  
+      const resultHtml = `
+        <br><p><strong><span style="color: white;">Location:</strong> <span style="color: white;"> ${location}</p>
+        <p><strong><span style="color: white;">Directions:</strong> <span style="color: white;">  <a href="${directions}" target="_blank">Click here</a></p>
+        <p><strong><span style="color: white;">Website:</strong> <span style="color: white;">  <a href="${website}" target="_blank">Click here</a></p>
+		<div class="link-nav">
+						<span class="box">
+							<a href="index.html">Home </a>
+							<i class="lnr lnr-arrow-right"></i>
+							<a href="blog-home.html">Find Recycle Bin</a>
+						</span>
+					</div>
+      ` ;
+	  
+      resultElement.innerHTML = resultHtml;
+    } else {
+      resultElement.innerHTML = '<br><p style="color: white;">No matching location found for the postal code.</p>';
+    }
+  }
+  
